@@ -11,8 +11,7 @@ public class PlayerController : NetworkBehaviour {
     [SerializeField] private float movementSpeed = 5f;
 
     public override void OnStartLocalPlayer() {
-        Camera.main.transform.parent = transform;
-        Camera.main.transform.localPosition = new Vector3(0, 0, 0);
+        transform.position = new Vector3(0, 10f, 0f);
     }
 
     void Start() {
