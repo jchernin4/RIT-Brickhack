@@ -13,11 +13,7 @@ public class PlayerController : NetworkBehaviour {
     void Start() {
         if (!isLocalPlayer) {
             GetComponentInChildren<Camera>().enabled = false;
-            return;
         }
-        
-        Debug.Log("START");
-        controller.Move(new Vector3(0, 5, 0));
     }
 
     [ClientCallback]
@@ -26,7 +22,7 @@ public class PlayerController : NetworkBehaviour {
         
         Debug.Log(transform.position);
 
-        var movement = new Vector3();
+        Vector3 movement = new Vector3();
 
         movement.x = Input.GetAxis("Horizontal");
         movement.z = Input.GetAxis("Vertical");
