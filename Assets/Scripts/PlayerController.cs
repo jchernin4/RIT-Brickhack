@@ -27,7 +27,7 @@ public class PlayerController : NetworkBehaviour {
         movement.x = Input.GetAxis("Horizontal");
         movement.z = Input.GetAxis("Vertical");
 
-        controller.Move(movement * movementSpeed * Time.deltaTime);
+        controller.Move(movement * (movementSpeed * Time.deltaTime));
 
        /* if (controller.velocity.magnitude > 0.2f)
         {

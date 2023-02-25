@@ -192,7 +192,6 @@ GameObject:
   - component: {fileID: 2898840326800454596}
   - component: {fileID: 2415878512767690158}
   - component: {fileID: 3132150755056990653}
-  - component: {fileID: 872276583178655958}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -265,20 +264,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &872276583178655958
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4733694809631647532}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4991956975435143826
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +274,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1358915106190360789}
   - component: {fileID: 3036701669414161160}
-  - component: {fileID: 784557279226761745}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -355,11 +339,3 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &784557279226761745
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4991956975435143826}
-  m_Enabled: 1
