@@ -18,13 +18,19 @@ public class PlayerController : NetworkBehaviour {
     private bool isGrounded;
 
     private float xRot;
+    public GameObject head;
 
     void Start() {
         if (!isLocalPlayer) {
             Destroy(GetComponent<CharacterController>());
             Destroy(GetComponent<Rigidbody>());
             GetComponentInChildren<Camera>().enabled = false;
+
+            return;
         }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     [ClientCallback]
@@ -60,7 +66,7 @@ public class PlayerController : NetworkBehaviour {
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, -90f, 90f);
 
-        transform.rotation = Quaternion.Euler(xRot, 0f, 0f);
+        head.transform.localRotation = Quaternion.Euler(0f, 0f, -xRot);
         transform.Rotate(Vector3.up * mouseX);
     }
 }
