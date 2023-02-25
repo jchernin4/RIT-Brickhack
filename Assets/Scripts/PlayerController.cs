@@ -10,10 +10,20 @@ public class PlayerController : NetworkBehaviour {
     [Header("Settings")]
     [SerializeField] private float movementSpeed = 5f;
 
+    public override void OnStartLocalPlayer() {
+        Camera.main.transform.parent = transform;
+        Camera.main.transform.localPosition = new Vector3(0, 0, 0);
+    }
+
+    void Start() {
+        if (!isLocalPlayer) {
+            GetComponentInChildren<Camera>().enabled = false;
+        }
+    }
+
     [ClientCallback]
-    private void Update()
-    {
-        if (!isOwned) { return; }
+    private void Update() {
+        if (!isLocalPlayer) { return; }
 
         var movement = new Vector3();
 
