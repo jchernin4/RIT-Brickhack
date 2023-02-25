@@ -12,6 +12,8 @@ public class PlayerController : NetworkBehaviour {
 
     void Start() {
         if (!isLocalPlayer) {
+            Destroy(GetComponent<CharacterController>());
+            Destroy(GetComponent<Rigidbody>());
             GetComponentInChildren<Camera>().enabled = false;
         }
     }
@@ -19,8 +21,6 @@ public class PlayerController : NetworkBehaviour {
     [ClientCallback]
     private void Update() {
         if (!isLocalPlayer) { return; }
-        
-        Debug.Log(transform.position);
 
         Vector3 movement = new Vector3();
 
