@@ -66,7 +66,7 @@ public class PlayerController : NetworkBehaviour {
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, -90f, 90f);
 
-        head.transform.localRotation = Quaternion.Euler(0f, 0f, -xRot);
+        head.transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
 }
