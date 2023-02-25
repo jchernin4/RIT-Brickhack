@@ -4,11 +4,18 @@ using Mirror;
 using UnityEngine;
 
 public class PlayerController : NetworkBehaviour {
-    [Header("References")]
-    [SerializeField] private CharacterController controller;
+    [Header("References")] [SerializeField]
+    private CharacterController controller;
 
-    [Header("Settings")]
-    [SerializeField] private float movementSpeed = 5f;
+    [Header("Settings")] [SerializeField] private float movementSpeed = 5f;
+    private const float GRAVITY = -9.81f * 1.5f;
+
+    public Transform groundCheck;
+    private const float GROUND_DISTANCE = 0.4f;
+    public LayerMask groundMask;
+
+    private Vector3 velocity;
+    private bool isGrounded;
 
     void Start() {
         if (!isLocalPlayer) {
@@ -20,18 +27,25 @@ public class PlayerController : NetworkBehaviour {
 
     [ClientCallback]
     private void Update() {
-        if (!isLocalPlayer) { return; }
+        if (!isLocalPlayer) {
+            return;
+        }
 
-        Vector3 movement = new Vector3();
+        isGrounded = Physics.CheckSphere(groundCheck.position, GROUND_DISTANCE, groundMask);
 
-        movement.x = Input.GetAxis("Horizontal");
-        movement.z = Input.GetAxis("Vertical");
+        if (isGrounded && velocity.y < 0) {
+            velocity.y = -2f;
+        }
 
-        controller.Move(movement * (movementSpeed * Time.deltaTime));
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
 
-       /* if (controller.velocity.magnitude > 0.2f)
-        {
-            transform.rotation = Quaternion.LookRotation(movement);
-        }*/
+        Vector3 move = transform.right * x + transform.forward * z;
+
+        controller.Move(move * movementSpeed * Time.deltaTime);
+
+        velocity.y += GRAVITY * Time.deltaTime;
+
+        controller.Move(velocity * Time.deltaTime);
     }
 }

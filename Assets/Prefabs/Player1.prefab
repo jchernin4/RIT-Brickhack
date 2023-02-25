@@ -88,6 +88,10 @@ MonoBehaviour:
   syncInterval: 0.1
   controller: {fileID: 3873442662935083751}
   movementSpeed: 5
+  groundCheck: {fileID: 3077194976460058535}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &3873442662935083749
 MonoBehaviour:
   m_ObjectHideFlags: 0
