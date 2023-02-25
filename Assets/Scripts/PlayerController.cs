@@ -17,12 +17,13 @@ public class PlayerController : NetworkBehaviour {
         }
         
         Debug.Log("START");
-        //transform.position = new Vector3(0, 5f, 0f);
+        controller.Move(new Vector3(0, 5, 0));
     }
 
     [ClientCallback]
     private void Update() {
         if (!isLocalPlayer) { return; }
+        
         Debug.Log(transform.position);
 
         var movement = new Vector3();
