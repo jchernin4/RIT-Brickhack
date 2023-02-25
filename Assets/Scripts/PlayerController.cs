@@ -17,6 +17,8 @@ public class PlayerController : NetworkBehaviour {
     private Vector3 velocity;
     private bool isGrounded;
 
+    private float xRot;
+
     void Start() {
         if (!isLocalPlayer) {
             Destroy(GetComponent<CharacterController>());
@@ -47,5 +49,18 @@ public class PlayerController : NetworkBehaviour {
         velocity.y += GRAVITY * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        ControlCamera();
+    }
+
+    void ControlCamera() {
+        float mouseX = Input.GetAxis("Mouse X") * 200f * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * 200f * Time.deltaTime;
+
+        xRot -= mouseY;
+        xRot = Mathf.Clamp(xRot, -90f, 90f);
+
+        transform.rotation = Quaternion.Euler(xRot, 0f, 0f);
+        transform.Rotate(Vector3.up * mouseX);
     }
 }
