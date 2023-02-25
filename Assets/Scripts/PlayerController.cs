@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
-public class PlayerController : NetworkBehaviour
-{
-    public override void OnStartLocalPlayer() {
-        Camera.main.transform.SetParent(transform);
-        Camera.main.transform.localPosition = new Vector3(0, 0, 0);
+public class PlayerController : NetworkBehaviour {
+    [Header("References")]
+    [SerializeField] private CharacterController controller;
 
-        transform.position = new Vector3(0, 10, 0);
-    }
+    [Header("Settings")]
+    [SerializeField] private float movementSpeed = 5f;
 
-    void Update() {
-        if (!isLocalPlayer) return;
+    [ClientCallback]
+    private void Update()
+    {
+        if (!isOwned) { return; }
 
-        float moveX = Input.GetAxis("Horizontal") * Time.deltaTime * 110f;
-        float moveZ = Input.GetAxis("Vertical") * Time.deltaTime * 4f;
-        
-        transform.Rotate(0, moveX, 0);
-        transform.Translate(0,0,moveZ);
+        var movement = new Vector3();
+
+        movement.x = Input.GetAxis("Horizontal");
+        movement.z = Input.GetAxis("Vertical");
+
+        controller.Move(movement * movementSpeed * Time.deltaTime);
+
+       /* if (controller.velocity.magnitude > 0.2f)
+        {
+            transform.rotation = Quaternion.LookRotation(movement);
+        }*/
     }
 }
