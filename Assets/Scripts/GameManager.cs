@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour {
                 int addx = (int)Random.Range(1.0f, 50.0f);
                 int addy = (int)Random.Range(1.0f, 49.0f);
                 answer = addx + addy;
-                mathProblem = addx + " + " + addy + " = " + answer;
+                mathProblem = addx + " + " + addy;
                 break;
             }
 
@@ -67,11 +67,11 @@ public class GameManager : MonoBehaviour {
                 int suby = (int)Random.Range(1.0f, 100.0f);
                 if (suby > subx) {
                     answer = suby - subx;
-                    mathProblem = suby + " - " + subx + " = " + answer;
+                    mathProblem = suby + " - " + subx;
                 }
 
                 answer = subx - suby;
-                mathProblem = subx + " - " + suby + " = " + answer;
+                mathProblem = subx + " - " + suby;
                 break;
             }
 
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour {
                 int mulx = (int)Random.Range(0.0f, 10.0f);
                 int muly = (int)Random.Range(1.0f, 9.0f);
                 answer = mulx * muly;
-                mathProblem = mulx + " * " + muly + " = " + answer;
+                mathProblem = mulx + " * " + muly;
                 break;
             }
 
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour {
                 int divx = (int)Random.Range(0.0f, 10.0f);
                 int divy = (int)Random.Range(1.0f, 9.0f);
                 int bignum = divx * divy;
-                mathProblem = bignum + " / " + divx + " = " + divy;
+                mathProblem = bignum + " / " + divx;
                 break;
             }
         }
