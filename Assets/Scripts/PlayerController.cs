@@ -47,9 +47,9 @@ public class PlayerController : NetworkBehaviour {
         if (Input.GetKeyDown(KeyCode.E)) {
             Ray ray = new Ray(cam.transform.position, cam.transform.forward);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, 2f)) {
-                /*if (hitInfo.transform.TryGetComponent(out Sphere)) {
-                    
-                }*/
+                if (hitInfo.transform.TryGetComponent(out Sphere s)) {
+                    //s.answer
+                }
             }
         }
 
