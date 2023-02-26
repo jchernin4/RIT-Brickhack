@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour {
     [Header("References")] [SerializeField]
     private CharacterController controller;
 
     [Header("Settings")] [SerializeField] private float movementSpeed = 5f;
-    private const float GRAVITY = -9.81f * 1.5f;
+    private const float GRAVITY = -9.81f * 4f;
 
     public Transform groundCheck;
     private const float GROUND_DISTANCE = 0.4f;
-    private const float JUMP_HEIGHT = 2f;
+    private const float JUMP_HEIGHT = 4f;
     public LayerMask groundMask;
 
     private Vector3 velocity;
@@ -25,6 +26,9 @@ public class PlayerController : NetworkBehaviour {
 
     private int score;
     private const int winScore = 10;
+
+    private Slider yourProgress;
+    private Slider opponentProgress;
 
     void Start() {
         if (!isLocalPlayer) {
@@ -54,6 +58,7 @@ public class PlayerController : NetworkBehaviour {
                     if (s.isCorrect) {
                         score++;
 
+                        CmdPlayerScored(gameObject.name);
                         if (score == winScore) {
                             CmdPlayerWon(gameObject.name);
                         }
@@ -64,6 +69,21 @@ public class PlayerController : NetworkBehaviour {
 
         Move();
         ControlCamera();
+    }
+
+    [Command]
+    private void CmdPlayerScored(string name) {
+        PlayerScored(name);
+    }
+
+    [ClientRpc]
+    private void PlayerScored(string name) {
+        if (gameObject.name.Equals(name)) {
+            yourProgress.value = (score / (float)winScore);
+            
+        } else {
+            opponentProgress.value += (1 / (float)winScore);
+        }
     }
 
     [Command]
