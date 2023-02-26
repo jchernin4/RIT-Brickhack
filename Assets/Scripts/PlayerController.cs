@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour {
     [Header("References")] [SerializeField]
@@ -25,6 +26,9 @@ public class PlayerController : NetworkBehaviour {
 
     private int score;
     private const int winScore = 10;
+
+    private Slider yourProgress;
+    private Slider opponentProgress;
 
     void Start() {
         if (!isLocalPlayer) {
@@ -54,6 +58,7 @@ public class PlayerController : NetworkBehaviour {
                     if (s.isCorrect) {
                         score++;
 
+                        CmdPlayerScored(gameObject.name);
                         if (score == winScore) {
                             CmdPlayerWon(gameObject.name);
                         }
@@ -64,6 +69,21 @@ public class PlayerController : NetworkBehaviour {
 
         Move();
         ControlCamera();
+    }
+
+    [Command]
+    private void CmdPlayerScored(string name) {
+        PlayerScored(name);
+    }
+
+    [ClientRpc]
+    private void PlayerScored(string name) {
+        if (gameObject.name.Equals(name)) {
+            yourProgress.value = (score / (float)winScore);
+            
+        } else {
+            opponentProgress.value += (1 / (float)winScore);
+        }
     }
 
     [Command]
