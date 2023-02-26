@@ -458,7 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b423043c9e947798268cdb70ea9185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  answer: 0
+  isCorrect: 0
 --- !u!1 &7113946568923059475
 GameObject:
   m_ObjectHideFlags: 0
