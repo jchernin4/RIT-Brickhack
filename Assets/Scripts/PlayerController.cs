@@ -23,6 +23,9 @@ public class PlayerController : NetworkBehaviour {
 
     private Camera cam;
 
+    private int score;
+    private const int winScore = 10;
+
     void Start() {
         if (!isLocalPlayer) {
             Destroy(GetComponent<CharacterController>());
@@ -48,7 +51,13 @@ public class PlayerController : NetworkBehaviour {
             Ray ray = new Ray(cam.transform.position, cam.transform.forward);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, 2f)) {
                 if (hitInfo.transform.TryGetComponent(out Sphere s)) {
-                    //s.answer
+                    if (s.isCorrect) {
+                        score++;
+
+                        if (score == winScore) {
+                            CmdPlayerWon(gameObject.name);
+                        }
+                    }
                 }
             }
         }
@@ -57,6 +66,16 @@ public class PlayerController : NetworkBehaviour {
         ControlCamera();
     }
 
+    [Command]
+    private void CmdPlayerWon(string name) {
+        EndGame(name);
+    }
+
+    [ClientRpc]
+    private void EndGame(string name) {
+        Debug.Log(gameObject.name.Equals(name) ? "You won!" : "You lost!");
+    }
+    
     void Move() {
         isGrounded = Physics.CheckSphere(groundCheck.position, GROUND_DISTANCE, groundMask);
 
