@@ -4838,13 +4838,8 @@ MonoBehaviour:
   answerSpherePrefab: {fileID: 6725254058576020967, guid: 027952fb2b60e46f5bb7a5ec76d2c09d, type: 3}
   points: {fileID: 1885114044}
   probtxt: {fileID: 1548594543}
-<<<<<<< HEAD
   yourProgress: {fileID: 1005952416}
   opponentProgress: {fileID: 1496111328}
-=======
-  yourProgress: {fileID: 0}
-  opponentProgress: {fileID: 0}
->>>>>>> a58fde82502ef11def0a6995ab961a96fe91bbd8
 --- !u!1001 &604218829
 PrefabInstance:
   m_ObjectHideFlags: 0
