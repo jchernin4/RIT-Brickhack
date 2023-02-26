@@ -9,7 +9,7 @@ public class PlayerController : NetworkBehaviour {
     private CharacterController controller;
 
     [Header("Settings")] [SerializeField] private float movementSpeed = 5f;
-    private const float GRAVITY = -9.81f * 1.5f;
+    private const float GRAVITY = -9.81f * 4f;
 
     public Transform groundCheck;
     private const float GROUND_DISTANCE = 0.4f;
