@@ -20,6 +20,8 @@ public class PlayerController : NetworkBehaviour {
     private float xRot;
     public GameObject head;
 
+    private Camera cam;
+
     void Start() {
         if (!isLocalPlayer) {
             Destroy(GetComponent<CharacterController>());
@@ -31,6 +33,8 @@ public class PlayerController : NetworkBehaviour {
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
+        cam = Camera.main;
     }
 
     [ClientCallback]
@@ -39,6 +43,20 @@ public class PlayerController : NetworkBehaviour {
             return;
         }
 
+        if (Input.GetKeyDown(KeyCode.E)) {
+            Ray ray = new Ray(cam.transform.position, cam.transform.forward);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 2f)) {
+                /*if (hitInfo.transform.TryGetComponent(out Sphere)) {
+                    
+                }*/
+            }
+        }
+
+        Move();
+        ControlCamera();
+    }
+
+    void Move() {
         isGrounded = Physics.CheckSphere(groundCheck.position, GROUND_DISTANCE, groundMask);
 
         if (isGrounded && velocity.y < 0) {
@@ -55,8 +73,6 @@ public class PlayerController : NetworkBehaviour {
         velocity.y += GRAVITY * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
-
-        ControlCamera();
     }
 
     void ControlCamera() {

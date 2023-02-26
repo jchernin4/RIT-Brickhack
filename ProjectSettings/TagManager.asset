@@ -3,12 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-<<<<<<< HEAD
-  tags:
-  - ChatWindow
-=======
   tags: []
->>>>>>> origin/master
   layers:
   - Default
   - TransparentFX
@@ -16,11 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-<<<<<<< HEAD
   - Ground
-=======
-  - 
->>>>>>> origin/master
   - 
   - 
   - 
