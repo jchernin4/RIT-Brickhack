@@ -70,9 +70,10 @@ public class GameManager : MonoBehaviour {
                     answer = suby - subx;
                     mathProblem = suby + " - " + subx;
                 }
-
-                answer = subx - suby;
-                mathProblem = subx + " - " + suby;
+                else{
+                    answer = subx - suby;
+                    mathProblem = subx + " - " + suby; 
+                }
                 break;
             }
 
