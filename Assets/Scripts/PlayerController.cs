@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,11 +25,10 @@ public class PlayerController : NetworkBehaviour {
 
     private Camera cam;
 
-    private int score;
+    private int score = 0;
     private const int winScore = 10;
 
-    private Slider yourProgress;
-    private Slider opponentProgress;
+    public TMP_Text username;
 
     void Start() {
         if (!isLocalPlayer) {
@@ -43,6 +43,8 @@ public class PlayerController : NetworkBehaviour {
         Cursor.visible = false;
         
         cam = Camera.main;
+
+        username.text = Random.Range(0, 9999).ToString();
     }
 
     [ClientCallback]
@@ -58,9 +60,10 @@ public class PlayerController : NetworkBehaviour {
                     if (s.isCorrect) {
                         score++;
 
-                        CmdPlayerScored(gameObject.name);
+                        CmdPlayerScored(username.text);
+                        Debug.Log("Player scored");
                         if (score == winScore) {
-                            CmdPlayerWon(gameObject.name);
+                            CmdPlayerWon(username.text);
                         }
                     }
                 }
@@ -71,28 +74,30 @@ public class PlayerController : NetworkBehaviour {
         ControlCamera();
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     private void CmdPlayerScored(string name) {
-        PlayerScored(name);
+        PlayerScoredRpc(name);
     }
 
     [ClientRpc]
-    private void PlayerScored(string name) {
-        if (gameObject.name.Equals(name)) {
-            yourProgress.value = (score / (float)winScore);
+    private void PlayerScoredRpc(string name) {
+        if (!isLocalPlayer) return;
+        
+        if (username.text.Equals(name)) {
+            GameManager.instance.yourProgress.value = (score / (float)winScore);
             
         } else {
-            opponentProgress.value += (1 / (float)winScore);
+            GameManager.instance.opponentProgress.value += (1 / (float)winScore);
         }
     }
 
     [Command]
     private void CmdPlayerWon(string name) {
-        EndGame(name);
+        EndGameRpc(name);
     }
 
     [ClientRpc]
-    private void EndGame(string name) {
+    private void EndGameRpc(string name) {
         Debug.Log(gameObject.name.Equals(name) ? "You won!" : "You lost!");
     }
     

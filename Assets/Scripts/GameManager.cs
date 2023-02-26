@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour {
@@ -11,8 +12,14 @@ public class GameManager : MonoBehaviour {
     private String mathProblem;
     public TMP_Text probtxt;
 
-    void Start()
-    {
+    public Slider yourProgress;
+    public Slider opponentProgress;
+
+    public static GameManager instance;
+    
+
+    void Start() {
+        instance = this;
         equation();
         probtxt.text = mathProblem;
         int answerPos = Random.Range(0, points.transform.childCount);
@@ -28,20 +35,17 @@ public class GameManager : MonoBehaviour {
             if (i == answerPos) {
                 continue;
             }
-            
+
             GameObject sphereTwo = Instantiate(answerSpherePrefab, points.transform.GetChild(i));
             sphereTwo.transform.localPosition = Vector3.zero;
-            
+
             int tempAnswer = answer - Random.Range(-10, 10);
             while (tempAnswer == answer) {
                 tempAnswer = answer - Random.Range(-10, 10);
             }
-            
-            Debug.Log("iii: " + i + " " + sphereTwo.gameObject.name);
 
             foreach (TMP_Text txt in sphereTwo.GetComponentsInChildren<TMP_Text>()) {
                 txt.text = tempAnswer.ToString();
-                Debug.Log("Set " + i + " to " + tempAnswer);
             }
         }
     }
