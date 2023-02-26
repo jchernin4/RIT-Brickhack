@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour {
                 int mulx = (int)Random.Range(0.0f, 10.0f);
                 int muly = (int)Random.Range(1.0f, 9.0f);
                 answer = mulx * muly;
-                mathProblem = mulx + " + " + muly + " = " + answer;
+                mathProblem = mulx + " * " + muly + " = " + answer;
                 break;
             }
 
