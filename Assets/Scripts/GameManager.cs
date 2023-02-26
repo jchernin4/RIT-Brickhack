@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-
-public class GameManager : MonoBehaviour
-{
-    public int answer;
-    public GameObject answerSphere;
+public class GameManager : MonoBehaviour {
+    [FormerlySerializedAs("answerSphere")] 
+    public GameObject answerSpherePrefab;
     public GameObject points;
     public String mathProblem;
 
     public int correctAnswer;
+<<<<<<< HEAD
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +25,24 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < points.transform.childCount; i++)
         { 
             Instantiate(answerSphere, points.transform.GetChild(i).transform);
+=======
+>>>>>>> a74cc5690124a3ef7e433f2ad44c649138299de4
 
+    void Start() {
+        int answerPos = Random.Range(0, points.transform.childCount - 1);
+        
+        GameObject curSphere = Instantiate(answerSpherePrefab, points.transform.GetChild(answerPos).position, Quaternion.identity);
+        curSphere.transform.localPosition = Vector3.zero;
+        curSphere.GetComponent<Sphere>().answer = correctAnswer;
+        
+        Destroy(points.transform.GetChild(answerPos));
+        
+        for (int i = 0; i < points.transform.childCount; i++) {
+            GameObject sphereTwo = Instantiate(answerSpherePrefab, points.transform.GetChild(i));
+            sphereTwo.transform.localPosition = Vector3.zero;
         }
     }
+<<<<<<< HEAD
 
     // Update is called once per frame
     private void equation(){
@@ -64,3 +79,6 @@ public class GameManager : MonoBehaviour
         }
     }
 }
+=======
+}
+>>>>>>> a74cc5690124a3ef7e433f2ad44c649138299de4

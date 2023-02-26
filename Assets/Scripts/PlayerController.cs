@@ -12,6 +12,7 @@ public class PlayerController : NetworkBehaviour {
 
     public Transform groundCheck;
     private const float GROUND_DISTANCE = 0.4f;
+    private const float JUMP_HEIGHT = 2f;
     public LayerMask groundMask;
 
     private Vector3 velocity;
@@ -46,9 +47,9 @@ public class PlayerController : NetworkBehaviour {
         if (Input.GetKeyDown(KeyCode.E)) {
             Ray ray = new Ray(cam.transform.position, cam.transform.forward);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, 2f)) {
-                /*if (hitInfo.transform.TryGetComponent(out Sphere)) {
-                    
-                }*/
+                if (hitInfo.transform.TryGetComponent(out Sphere s)) {
+                    //s.answer
+                }
             }
         }
 
@@ -71,6 +72,10 @@ public class PlayerController : NetworkBehaviour {
         controller.Move(move * movementSpeed * Time.deltaTime);
 
         velocity.y += GRAVITY * Time.deltaTime;
+        
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) {
+            velocity.y += Mathf.Sqrt(JUMP_HEIGHT * -2f * GRAVITY);
+        }
 
         controller.Move(velocity * Time.deltaTime);
     }
