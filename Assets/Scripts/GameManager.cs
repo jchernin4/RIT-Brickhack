@@ -7,7 +7,8 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour {
     private int answer;
-    [FormerlySerializedAs("answerSphere")] public GameObject answerSpherePrefab;
+    [FormerlySerializedAs("answerSphere")]
+    public GameObject answerSpherePrefab;
     public GameObject points;
     private String mathProblem;
     public TMP_Text probtxt;

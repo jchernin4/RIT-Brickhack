@@ -194,6 +194,7 @@ MonoBehaviour:
     m_Bits: 64
   head: {fileID: 2163899548054105294}
   username: {fileID: 7861414318612611787}
+  victoryText: {fileID: 0}
 --- !u!114 &3873442662935083749
 MonoBehaviour:
   m_ObjectHideFlags: 0

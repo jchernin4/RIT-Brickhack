@@ -94,7 +94,8 @@ public class PlayerController : NetworkBehaviour {
 
     [ClientRpc]
     private void RpcResetGame() {
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
+        GameObject.Find("Victory").GetComponent<TMP_Text>().alpha = 1f;
     }
 
     [ClientRpc(includeOwner = true)]
