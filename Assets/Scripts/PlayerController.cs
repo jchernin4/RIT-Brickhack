@@ -30,6 +30,15 @@ public class PlayerController : NetworkBehaviour {
 
     public TMP_Text username;
 
+    public override void OnStartLocalPlayer() {
+        CmdSetupPlayer(Random.Range(0, 9999).ToString());
+    }
+
+    [Command]
+    void CmdSetupPlayer(string name) {
+        usernameText = name;
+    }
+
     void Start() {
         if (!isLocalPlayer) {
             Destroy(GetComponent<CharacterController>());
@@ -43,8 +52,6 @@ public class PlayerController : NetworkBehaviour {
         Cursor.visible = false;
         
         cam = Camera.main;
-
-        usernameText = Random.Range(0, 9999).ToString();
     }
 
     [ClientCallback]
