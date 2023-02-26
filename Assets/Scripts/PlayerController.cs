@@ -85,7 +85,7 @@ public class PlayerController : NetworkBehaviour {
 
     [ClientRpc(includeOwner = true)]
     private void PlayerScoredRpc(string name) {
-        if (username.text.Equals(name)) {
+        if (usernameText.Equals(name)) {
             GameManager.instance.yourProgress.value = (score / (float)winScore);
             
         } else {
