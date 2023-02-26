@@ -1,6 +1,7 @@
 using Mirror;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : NetworkBehaviour {
     [Header("References")] [SerializeField]
@@ -87,7 +88,13 @@ public class PlayerController : NetworkBehaviour {
 
     [Command(requiresAuthority = false)]
     private void CmdPlayerScored(string name) {
-        PlayerScoredRpc(name);
+        RpcResetGame();
+        //PlayerScoredRpc(name);
+    }
+
+    [ClientRpc]
+    private void RpcResetGame() {
+        SceneManager.LoadScene(0);
     }
 
     [ClientRpc(includeOwner = true)]
