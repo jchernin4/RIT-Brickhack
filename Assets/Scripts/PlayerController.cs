@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour {
     [Header("References")] [SerializeField]
@@ -25,8 +22,11 @@ public class PlayerController : NetworkBehaviour {
 
     private Camera cam;
 
-    private int score = 0;
+    private int score;
     private const int winScore = 10;
+
+    [SyncVar(hook = nameof(OnUsernameChanged))]
+    private string usernameText;
 
     public TMP_Text username;
 
@@ -44,7 +44,7 @@ public class PlayerController : NetworkBehaviour {
         
         cam = Camera.main;
 
-        username.text = Random.Range(0, 9999).ToString();
+        usernameText = Random.Range(0, 9999).ToString();
     }
 
     [ClientCallback]
@@ -74,12 +74,16 @@ public class PlayerController : NetworkBehaviour {
         ControlCamera();
     }
 
+    private void OnUsernameChanged(string oldName, string newName) {
+        username.text = newName;
+    }
+
     [Command(requiresAuthority = false)]
     private void CmdPlayerScored(string name) {
         PlayerScoredRpc(name);
     }
 
-    [ClientRpc]
+    [ClientRpc(includeOwner = true)]
     private void PlayerScoredRpc(string name) {
         if (!isLocalPlayer) return;
         
