@@ -60,10 +60,10 @@ public class PlayerController : NetworkBehaviour {
                     if (s.isCorrect) {
                         score++;
 
-                        CmdPlayerScored(username.text);
+                        CmdPlayerScored(usernameText);
                         Debug.Log("Player scored");
                         if (score == winScore) {
-                            CmdPlayerWon(username.text);
+                            CmdPlayerWon(usernameText);
                         }
                     }
                 }
@@ -85,9 +85,7 @@ public class PlayerController : NetworkBehaviour {
 
     [ClientRpc(includeOwner = true)]
     private void PlayerScoredRpc(string name) {
-        if (!isLocalPlayer) return;
-        
-        if (username.text.Equals(name)) {
+        if (usernameText.Equals(name)) {
             GameManager.instance.yourProgress.value = (score / (float)winScore);
             
         } else {
