@@ -13,7 +13,7 @@ public class PlayerController : NetworkBehaviour {
 
     public Transform groundCheck;
     private const float GROUND_DISTANCE = 0.4f;
-    private const float JUMP_HEIGHT = 2f;
+    private const float JUMP_HEIGHT = 4f;
     public LayerMask groundMask;
 
     private Vector3 velocity;
