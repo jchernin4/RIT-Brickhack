@@ -8,7 +8,7 @@ public class math {
         if(choice == 1){
             int addx = (int)Random.Range(1.0f,50.0f);
             int addy = (int)Random.Range(1.0f,49.0f);
-            answer = addx + addy;
+            int answer = addx + addy;
             return addx + " + " + addy + " = " + answer;
 
         }
@@ -16,16 +16,16 @@ public class math {
             int subx = (int)Random.Range(1.0f,100.0f);
             int suby = (int)Random.Range(1.0f,100.0f);
             if(suby > subx){
-                answer = suby - subx;
+                int answer = suby - subx;
                 return suby + " - " + subx + " = " + answer;
             }
-            answer = subx - suby;
+            int answer = subx - suby;
             return subx + " - " + suby + " = " + answer;
         }
         else if(choice == 3){
             int mulx = (int)Random.Range(0.0f,10.0f);
             int muly = (int)Random.Range(1.0f,9.0f);
-            answer = mulx * muly;
+            int answer = mulx * muly;
             return mulx + " + " + muly + " = " + answer;
         }
         else{
